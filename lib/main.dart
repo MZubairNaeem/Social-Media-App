@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sayhi/views/credentials/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: const Color(0x00ff9899),
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blueGrey,
           primaryColorDark: Colors.blueGrey,
