@@ -41,6 +41,7 @@ class _HomeState extends State<Home> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
+                //active icon
                 label: 'Home',
                 backgroundColor: Colors.blueGrey.shade700
             ),
