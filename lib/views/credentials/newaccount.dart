@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({Key? key}) : super(key: key);
@@ -9,7 +9,32 @@ class NewAccount extends StatefulWidget {
 }
 
 class _NewAccountState extends State<NewAccount> {
+
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+  final _confirmPassController = TextEditingController();
+
+
+  @override
+  void dispose(){
+    super.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+    _confirmPassController.dispose();
+  }
+
+  Future signUp() async{
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _confirmPassController.text.trim()
+    );
+  }
+
+
   String? gender;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -54,11 +79,12 @@ class _NewAccountState extends State<NewAccount> {
                           children: [
                             CircleAvatar(
                               minRadius: 40,
+                              backgroundColor: Colors.blueGrey.shade400,
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Upload Photo',
+                                'Upload Photo',style: TextStyle(color: Colors.black),
                               ),
                             )
                           ],
@@ -66,8 +92,8 @@ class _NewAccountState extends State<NewAccount> {
 
                         //Name Block ///////////////////////////////////////////
                         Column(
-                          children: const [
-                            Align(
+                          children: [
+                            const Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Name',
@@ -80,9 +106,9 @@ class _NewAccountState extends State<NewAccount> {
                             ),
                             //Email text Field///////////////////////////////////////////////////////////////
                             TextField(
-                              maxLength: 20,
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                              controller: _usernameController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.blueGrey)),
@@ -94,129 +120,147 @@ class _NewAccountState extends State<NewAccount> {
                         ),
 
                         //Email Block //////////////////////////////////////////
-                        Column(
-                          children: const [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Email',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Email',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            //Email text Field///////////////////////////////////////////////////////////////
-                            TextField(
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.blueGrey)),
-                                  hintText: 'Enter Your Email Address',
-                                  hintStyle: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18)),
-                            ),
-                          ],
+                              //Email text Field///////////////////////////////////////////////////////////////
+                              TextField(
+                                controller: _emailController,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Colors.blueGrey)),
+                                    hintText: 'Enter Your Email Address',
+                                    hintStyle: TextStyle(
+                                        color: Colors.blueGrey, fontSize: 18)),
+                              ),
+                            ],
+                          ),
                         ),
 
                         //gender Radio button block/////////////////////////////
-                        Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Gender',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  'Male'
-                                ),
-                                Radio(value: "Male", groupValue: gender, onChanged:  (value){
-                                  setState(() {
-                                    gender = value.toString();
-                                  });
-                                },),
-                                Text(
-                                    'Female'
-                                ),
-                                Radio(value: "Female", groupValue: gender, onChanged:  (value){
-                                  setState(() {
-                                    gender = value.toString();
-                                  });
-                                },)
-                              ],
-                            ),
-                          ],
-                        ),
+                        // Column(
+                        //   children: [
+                        //     const Align(
+                        //       alignment: Alignment.topLeft,
+                        //       child: Text(
+                        //         'Gender',
+                        //         style: TextStyle(
+                        //           fontSize: 24,
+                        //           color: Colors.black,
+                        //           fontWeight: FontWeight.bold,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Row(
+                        //       children: [
+                        //         const Text(
+                        //           'Male',
+                        //           style: TextStyle(color: Colors.black),
+                        //         ),
+                        //         Radio(value: "Male", groupValue: gender, onChanged:  (value){
+                        //           setState(() {
+                        //             gender = value.toString();
+                        //           });
+                        //         },),
+                        //         const Text(
+                        //             'Female',
+                        //           style: TextStyle(color: Colors.black),
+                        //         ),
+                        //         Radio(value: "Female", groupValue: gender, onChanged:  (value){
+                        //           setState(() {
+                        //             gender = value.toString();
+                        //           });
+                        //         },)
+                        //       ],
+                        //     ),
+                        //   ],
+                        // ),
 
                         //Password block////////////////////////////////////////
-                        Column(
-                          children: const [
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                'Password',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
+                        //password block
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Column(
+                            children: [
+                              const Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Password',
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            //Password Text Field///////////////////////////////////////////////////////////////
-                            TextField(
-                              obscureText: true,
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.blueGrey)),
-                                  hintText: 'Enter Password',
-                                  hintStyle: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18)),
-                            ),
+                              //Password Text Field///////////////////////////////////////////////////////////////
+                              TextField(
+                                controller: _passController,
+                                obscureText: true,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Colors.blueGrey)),
+                                    hintText: 'Enter a Strong Password',
+                                    hintStyle: TextStyle(
+                                        color: Colors.blueGrey, fontSize: 18)),
+                              ),
 
-                            //Confirm Password Text Field///////////////////////////////////////////////////////////////
-                            TextField(
-                              obscureText: true,
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: Colors.blueGrey)),
-                                  hintText: 'Enter a Strong Password',
-                                  hintStyle: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18)),
-                            ),
-                          ],
+                              //Confirm Password Text Field///////////////////////////////////////////////////////////////
+                              TextField(
+                                controller: _confirmPassController,
+                                obscureText: true,
+                                style: const TextStyle(color: Colors.black),
+                                decoration: const InputDecoration(
+                                    enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: Colors.blueGrey)),
+                                    hintText: 'Confirm Password',
+                                    hintStyle: TextStyle(
+                                        color: Colors.blueGrey, fontSize: 18)),
+                              ),
+                            ],
+                          ),
                         ),
 
                         //Submit Button/////////////////////////////////////////
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20,bottom: 20),
-                          child: Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: Colors.blueGrey[700],
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Submit',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w600),
+                        GestureDetector(
+                          onTap: (){
+                            signUp();
+                            Navigator.pop(context);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 40,bottom: 40),
+                            child: Container(
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey[700],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                           ),

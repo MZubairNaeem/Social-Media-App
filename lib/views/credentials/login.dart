@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sayhi/views/credentials/forgetpass.dart';
 import 'package:sayhi/views/credentials/newaccount.dart';
+import 'package:sayhi/views/home/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -132,22 +133,27 @@ class _LoginState extends State<Login> {
                         ),
 
                         //login Button////////////////////////////////////////////
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: Container(
-                            padding: const EdgeInsets.all(14),
-                            decoration: BoxDecoration(
-                              color: Colors.blueGrey[700],
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    letterSpacing: 1,
-                                    fontWeight: FontWeight.w600),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: Container(
+                              padding: const EdgeInsets.all(14),
+                              decoration: BoxDecoration(
+                                color: Colors.blueGrey[700],
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ),
                           ),
@@ -171,7 +177,7 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const NewAccount()));
+                                          builder: (context) => NewAccount()));
                                 },
                                 child: Text(
                                   "Sign up",

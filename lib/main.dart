@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Say Hi',
       theme: ThemeData(
           fontFamily: GoogleFonts.varelaRound().fontFamily,
         colorScheme: ColorScheme.fromSwatch(
@@ -29,6 +30,20 @@ class MyApp extends StatelessWidget {
         )
       ),
       darkTheme: ThemeData.dark(
+      ).copyWith(
+        focusColor: Colors.blueGrey,
+          primaryColorDark: Colors.blueGrey,
+          cardColor: Colors.blueGrey,
+          backgroundColor: Colors.black54,
+          errorColor: Colors.red,
+        textTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
+          displayColor: Colors.black
+
+        ),
+        primaryTextTheme: ThemeData.dark().textTheme.apply(
+          fontFamily: GoogleFonts.varelaRound().fontFamily,
+        ),
       ),
       home: Login(),
     );
