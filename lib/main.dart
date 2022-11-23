@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sayhi/views/credentials/login.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp;
-    options: DefaultFirebaseOptions.currentPlatform;
-
+  Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform
+  );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -22,18 +27,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           fontFamily: GoogleFonts.varelaRound().fontFamily,
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blueGrey,
-          primaryColorDark: Colors.blueGrey,
-          cardColor: Colors.blueGrey,
+          primarySwatch: Colors.deepPurple,
+          primaryColorDark: Colors.deepPurple,
+          cardColor: Colors.deepPurple[200],
           backgroundColor: Colors.black54,
           errorColor: Colors.red
         )
       ),
       darkTheme: ThemeData.dark(
       ).copyWith(
-        focusColor: Colors.blueGrey,
-          primaryColorDark: Colors.blueGrey,
-          cardColor: Colors.blueGrey,
+        focusColor: Colors.purple,
+          primaryColorDark: Colors.deepPurple,
+          cardColor: Colors.deepPurple,
           backgroundColor: Colors.black54,
           errorColor: Colors.red,
         textTheme: ThemeData.dark().textTheme.apply(

@@ -16,7 +16,7 @@ class _LoginState extends State<Login> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Colors.blueGrey[300],
+        backgroundColor: Colors.deepPurple[300],
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(
@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
             ),
             child: SingleChildScrollView(
               child: Card(
-                color: Colors.blueGrey.shade100,
+                color: Colors.deepPurple[50],
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
 
                         //Email Block ////////////////////////////////////////////
                         Column(
-                          children: const [
+                          children:  const [
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
@@ -70,10 +70,10 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.blueGrey)),
+                                          BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Email',
                                   hintStyle: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 18)),
                             ),
                           ],
                         ),
@@ -100,10 +100,10 @@ class _LoginState extends State<Login> {
                               decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.blueGrey)),
+                                          BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Password',
                                   hintStyle: TextStyle(
-                                      color: Colors.blueGrey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 18)),
                             ),
                           ],
                         ),
@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                             child: Container(
                               padding: const EdgeInsets.all(14),
                               decoration: BoxDecoration(
-                                color: Colors.blueGrey[700],
+                                color: Colors.deepPurple,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: const Center(
@@ -184,7 +184,7 @@ class _LoginState extends State<Login> {
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w900,
-                                      color: Colors.blueGrey[800]),
+                                      color: Colors.deepPurple[800]),
                                 ),
                               ),
                             ],
@@ -198,7 +198,7 @@ class _LoginState extends State<Login> {
                               children: [
                                 Expanded(
                                     child: Divider(
-                                      color: Colors.blueGrey.shade800,
+                                      color: Colors.deepPurple.shade800,
                                       thickness: 2,
                                     )
                                 ),
@@ -213,7 +213,7 @@ class _LoginState extends State<Login> {
 
                                 Expanded(
                                     child: Divider(
-                                      color: Colors.blueGrey.shade800,
+                                      color: Colors.deepPurple.shade800,
                                       thickness: 2,
                                     )
                                 ),

@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
           title: const Text('Say Hi'),
-          backgroundColor: Colors.blueGrey.shade700
+          backgroundColor: Colors.deepPurple
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -43,22 +43,22 @@ class _HomeState extends State<Home> {
                 icon: Icon(Icons.home),
                 //active icon
                 label: 'Home',
-                backgroundColor: Colors.blueGrey.shade700
+                backgroundColor: Colors.deepPurple
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.video_library),
                 label: 'Moments',
-                backgroundColor: Colors.blueGrey.shade700
+                backgroundColor: Colors.deepPurple
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Search',
-                backgroundColor: Colors.blueGrey.shade700
+                backgroundColor: Colors.deepPurple
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
-              backgroundColor: Colors.blueGrey.shade700,
+              backgroundColor: Colors.deepPurple,
             ),
           ],
           type: BottomNavigationBarType.shifting,

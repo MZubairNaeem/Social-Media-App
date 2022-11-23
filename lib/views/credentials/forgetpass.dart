@@ -14,14 +14,14 @@ class _ForgetPassState extends State<ForgetPass> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.blueGrey[300],
+        backgroundColor: Colors.deepPurple[300],
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(
                 top: 200.0,
             ),
             child: Card(
-              color: Colors.blueGrey.shade100,
+              color: Colors.deepPurple.shade50,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
@@ -67,10 +67,10 @@ class _ForgetPassState extends State<ForgetPass> {
                             decoration: InputDecoration(
                                 enabledBorder: UnderlineInputBorder(
                                     borderSide:
-                                    BorderSide(color: Colors.blueGrey)),
+                                    BorderSide(color: Colors.deepPurple)),
                                 hintText: 'Enter Email',
                                 hintStyle: TextStyle(
-                                    color: Colors.blueGrey, fontSize: 18)),
+                                    color: Colors.grey, fontSize: 18)),
                           ),
                         ],
                       ),
@@ -81,7 +81,7 @@ class _ForgetPassState extends State<ForgetPass> {
                         child: Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: Colors.blueGrey[700],
+                            color: Colors.deepPurple,
                             borderRadius: BorderRadius.circular(15),
                           ),
                           child: const Center(
@@ -108,7 +108,8 @@ class _ForgetPassState extends State<ForgetPass> {
                               "Back to login",
                               style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.black87,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.deepPurple,
                               ),
                             ),
                           ),
