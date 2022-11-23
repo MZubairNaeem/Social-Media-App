@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sayhi/viewModel/auth_method.dart';
@@ -245,9 +246,7 @@ class _NewAccountState extends State<NewAccount> {
                         //Submit Button/////////////////////////////////////////
                         GestureDetector(
                           onTap: () async {
-                            const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            );
+
                             String res = await AuthMethod().signUpUser(
                               email: _emailController.text,
                               password: _passController.text,
