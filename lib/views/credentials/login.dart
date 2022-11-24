@@ -35,15 +35,15 @@ class _LoginState extends State<Login> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //Login Text//////////////////////////////////////////////
-                        const Padding(
-                          padding: EdgeInsets.only(top: 15, bottom: 18),
+                         Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 18),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               'Log-in',
                               style: TextStyle(
                                 fontSize: 36,
-                                color: Colors.black,
+                                color: Colors.grey.shade800,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -52,20 +52,20 @@ class _LoginState extends State<Login> {
 
                         //Email Block ////////////////////////////////////////////
                         Column(
-                          children:  const [
+                          children:  [
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Email',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             //Email text Field///////////////////////////////////////////////////////////////
-                            TextField(
+                            const TextField(
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
                                           BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Email',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
                           ],
                         ),
@@ -82,20 +82,20 @@ class _LoginState extends State<Login> {
 
                         //Password block//////////////////////////////////////////
                         Column(
-                          children: const [
+                          children:  [
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Password',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             //Password Text Field///////////////////////////////////////////////////////////////
-                            TextField(
+                            const TextField(
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
@@ -103,7 +103,7 @@ class _LoginState extends State<Login> {
                                           BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Password',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
                           ],
                         ),
@@ -165,11 +165,11 @@ class _LoginState extends State<Login> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 "Don't have an account? ",
                                 style: TextStyle(
                                     fontSize: 20,
-                                    color: Colors.black87,
+                                    color: Colors.grey.shade800,
                                 ),
                               ),
                               GestureDetector(
@@ -203,10 +203,10 @@ class _LoginState extends State<Login> {
                                     )
                                 ),
 
-                                const Text(
+                                 Text(
                                     " or login with ",
                                   style: TextStyle(
-                                    color: Colors.black87,
+                                    color: Colors.grey.shade800,
                                     fontSize: 16
                                   ),
                                 ),
@@ -223,15 +223,15 @@ class _LoginState extends State<Login> {
 
                         //fb logo/////////////////////////////////////////////////
                         Padding(
-                          padding: const EdgeInsets.only(top: 40,bottom: 100),
+                          padding: const EdgeInsets.only(top: 40,bottom: 105),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 'Continue with facebook ',
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Colors.black87,
+                                  color: Colors.grey.shade800,
                                 ),
                               ),
                               Image.asset(
