@@ -1,11 +1,10 @@
 import 'dart:typed_data';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sayhi/viewModel/auth_method.dart';
 import 'package:sayhi/views/ui_logic/image_picker.dart';
+import 'package:sayhi/views/ui_logic/show_snack_bar.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({Key? key}) : super(key: key);
@@ -21,6 +20,8 @@ class _NewAccountState extends State<NewAccount> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   Uint8List? _image;
+
+  final bool _validate = false;
 
 
   @override
@@ -45,7 +46,14 @@ class _NewAccountState extends State<NewAccount> {
     });
   }
 
+  bool _isLoading = false;
   void signUp() async {
+
+    setState(() {
+      _isLoading = true;
+      new Future.delayed(new Duration(seconds: 10), _delay);
+    });
+
     String res = await AuthMethod().signUpUser(
       email: _emailController.text,
       password: _passController.text,
@@ -53,9 +61,30 @@ class _NewAccountState extends State<NewAccount> {
       username: _usernameController.text,
       file: _image!,
     );
-    Navigator.pop(context);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if(res != 'success'){
+      showSnackBar(res, context);
+    }
+
     print(res);
   }
+
+  Future _delay() async{
+    setState((){
+      _isLoading = false;
+    });
+  }
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -157,14 +186,16 @@ class _NewAccountState extends State<NewAccount> {
                             TextField(
                               controller: _usernameController,
                               style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                  //errorText: _validate ? 'Can\'t Be Empty' : null,
+                                  enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Username',
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
+
                           ],
                         ),
                         const SizedBox(
@@ -222,12 +253,13 @@ class _NewAccountState extends State<NewAccount> {
                             TextField(
                               controller: _emailController,
                               style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                  //errorText: _validate ? 'Can\'t Be Empty' : null,
+                                  enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Email Address',
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
                           ],
@@ -256,12 +288,13 @@ class _NewAccountState extends State<NewAccount> {
                               controller: _passController,
                               obscureText: true,
                               style: const TextStyle(color: Colors.black),
-                              decoration: const InputDecoration(
-                                  enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                  //errorText: _validate ? 'Can\'t Be Empty or atleast 6 characters' : null,
+                                  enabledBorder: const UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter a Password',
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
 
@@ -272,6 +305,7 @@ class _NewAccountState extends State<NewAccount> {
                         GestureDetector(
                           onTap: ()  {
                             signUp();
+                            //Navigator.pop(context);
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 30, bottom: 10),
@@ -281,7 +315,9 @@ class _NewAccountState extends State<NewAccount> {
                                 color: Colors.deepPurple,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: const Center(
+                              child: _isLoading? const Center(child: CircularProgressIndicator(
+                                color: Colors.white,
+                              )) : const Center(
                                 child: Text(
                                   'Submit',
                                   style: TextStyle(
