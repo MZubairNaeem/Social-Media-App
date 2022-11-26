@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sayhi/viewModel/auth_method.dart';
 import 'package:sayhi/views/credentials/forgetpass.dart';
 import 'package:sayhi/views/credentials/newaccount.dart';
 import 'package:sayhi/views/home/home.dart';
+import 'package:sayhi/views/ui_logic/show_snack_bar.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,6 +14,55 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+
+  @override
+  void initState() {
+    Firebase.initializeApp;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+  }
+
+
+  bool _isLoading = false;
+  void login() async {
+
+    setState(() {
+      _isLoading = true;
+      Future.delayed(const Duration(seconds: 1), _delay);
+    });
+
+    String res = await AuthMethod().loginUser(
+        email: _emailController.text, password: _passController.text,
+    );
+
+    if(res == "success"){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home()));
+    }else{
+      showSnackBar(res, context);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future _delay() async{
+    setState((){
+      _isLoading = false;
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,9 +117,10 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             //Email text Field///////////////////////////////////////////////////////////////
-                            const TextField(
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                            TextField(
+                              controller: _emailController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.deepPurple)),
@@ -95,9 +148,11 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             //Password Text Field///////////////////////////////////////////////////////////////
-                            const TextField(
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                             TextField(
+                              controller: _passController,
+                               obscureText: true,
+                               style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.deepPurple)),
@@ -135,7 +190,7 @@ class _LoginState extends State<Login> {
                         //login Button////////////////////////////////////////////
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                            login();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -144,8 +199,9 @@ class _LoginState extends State<Login> {
                               decoration: BoxDecoration(
                                 color: Colors.deepPurple,
                                 borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Center(
+                              ),child: _isLoading? const Center(child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )): const Center(
                                 child: Text(
                                   'Login',
                                   style: TextStyle(

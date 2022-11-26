@@ -21,7 +21,6 @@ class _NewAccountState extends State<NewAccount> {
   final _passController = TextEditingController();
   Uint8List? _image;
 
-  final bool _validate = false;
 
 
   @override
@@ -51,7 +50,7 @@ class _NewAccountState extends State<NewAccount> {
 
     setState(() {
       _isLoading = true;
-      new Future.delayed(new Duration(seconds: 10), _delay);
+      Future.delayed(const Duration(seconds: 10), _delay);
     });
 
     String res = await AuthMethod().signUpUser(
@@ -66,10 +65,10 @@ class _NewAccountState extends State<NewAccount> {
       _isLoading = false;
     });
 
+
     if(res != 'success'){
       showSnackBar(res, context);
     }
-
     print(res);
   }
 
@@ -186,13 +185,12 @@ class _NewAccountState extends State<NewAccount> {
                             TextField(
                               controller: _usernameController,
                               style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  //errorText: _validate ? 'Can\'t Be Empty' : null,
-                                  enabledBorder: const UnderlineInputBorder(
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Username',
-                                  hintStyle: const TextStyle(
+                                  hintStyle: TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
 
@@ -253,13 +251,12 @@ class _NewAccountState extends State<NewAccount> {
                             TextField(
                               controller: _emailController,
                               style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  //errorText: _validate ? 'Can\'t Be Empty' : null,
-                                  enabledBorder: const UnderlineInputBorder(
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Email Address',
-                                  hintStyle: const TextStyle(
+                                  hintStyle: TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
                           ],
@@ -288,13 +285,12 @@ class _NewAccountState extends State<NewAccount> {
                               controller: _passController,
                               obscureText: true,
                               style: const TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
-                                  //errorText: _validate ? 'Can\'t Be Empty or atleast 6 characters' : null,
-                                  enabledBorder: const UnderlineInputBorder(
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter a Password',
-                                  hintStyle: const TextStyle(
+                                  hintStyle: TextStyle(
                                       color: Colors.grey, fontSize: 16)),
                             ),
 

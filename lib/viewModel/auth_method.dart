@@ -1,14 +1,15 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:sayhi/viewModel/storage_method.dart';
-
 
 class AuthMethod {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore  _firestore = FirebaseFirestore.instance;
 
+
+
+// create new user to the app
   Future<String> signUpUser(
       {required String email,
       required String password,
@@ -44,4 +45,24 @@ class AuthMethod {
     }
     return res;
   }
+
+  Future<String> loginUser({
+  required String email,
+  required String password
+})async {
+    String res = "Some error has occur";
+
+    try{
+      if(email.isNotEmpty || password.isNotEmpty){
+       await _auth.signInWithEmailAndPassword(email: email, password: password);
+       res = "success";
+      }else{
+        res = "Please Enter all the fields";
+      }
+    }catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
+
 }
