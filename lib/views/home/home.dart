@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sayhi/views/home/navigation_pages/moments_page.dart';
 import 'package:sayhi/views/home/navigation_pages/post_page.dart';

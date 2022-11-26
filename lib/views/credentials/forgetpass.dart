@@ -32,15 +32,15 @@ class _ForgetPassState extends State<ForgetPass> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //Forget Password Text//////////////////////////////////////////////
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15, bottom: 18),
+                       Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 18),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Forget Password',
                             style: TextStyle(
                               fontSize: 36,
-                              color: Colors.black,
+                              color: Colors.grey.shade800,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -49,20 +49,20 @@ class _ForgetPassState extends State<ForgetPass> {
 
                       //Email Block ////////////////////////////////////////////
                       Column(
-                        children: const [
+                        children:  [
                           Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               'Email',
                               style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.black,
+                                fontSize: 22,
+                                color: Colors.grey.shade800,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           //Email text Field///////////////////////////////////////////////////////////////
-                          TextField(
+                          const TextField(
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 enabledBorder: UnderlineInputBorder(
@@ -70,7 +70,7 @@ class _ForgetPassState extends State<ForgetPass> {
                                     BorderSide(color: Colors.deepPurple)),
                                 hintText: 'Enter Email',
                                 hintStyle: TextStyle(
-                                    color: Colors.grey, fontSize: 18)),
+                                    color: Colors.grey, fontSize: 16)),
                           ),
                         ],
                       ),

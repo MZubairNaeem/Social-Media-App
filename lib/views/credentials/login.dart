@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sayhi/viewModel/auth_method.dart';
 import 'package:sayhi/views/credentials/forgetpass.dart';
 import 'package:sayhi/views/credentials/newaccount.dart';
 import 'package:sayhi/views/home/home.dart';
+import 'package:sayhi/views/ui_logic/show_snack_bar.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -11,6 +14,55 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
+
+  @override
+  void initState() {
+    Firebase.initializeApp;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passController.dispose();
+  }
+
+
+  bool _isLoading = false;
+  void login() async {
+
+    setState(() {
+      _isLoading = true;
+      Future.delayed(const Duration(seconds: 1), _delay);
+    });
+
+    String res = await AuthMethod().loginUser(
+        email: _emailController.text, password: _passController.text,
+    );
+
+    if(res == "success"){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home()));
+    }else{
+      showSnackBar(res, context);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future _delay() async{
+    setState((){
+      _isLoading = false;
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,15 +87,15 @@ class _LoginState extends State<Login> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //Login Text//////////////////////////////////////////////
-                        const Padding(
-                          padding: EdgeInsets.only(top: 15, bottom: 18),
+                         Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 18),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               'Log-in',
                               style: TextStyle(
                                 fontSize: 36,
-                                color: Colors.black,
+                                color: Colors.grey.shade800,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -52,28 +104,29 @@ class _LoginState extends State<Login> {
 
                         //Email Block ////////////////////////////////////////////
                         Column(
-                          children:  const [
+                          children:  [
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Email',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             //Email text Field///////////////////////////////////////////////////////////////
                             TextField(
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                              controller: _emailController,
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Email',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
                           ],
                         ),
@@ -82,28 +135,30 @@ class _LoginState extends State<Login> {
 
                         //Password block//////////////////////////////////////////
                         Column(
-                          children: const [
+                          children:  [
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Password',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                             //Password Text Field///////////////////////////////////////////////////////////////
-                            TextField(
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                             TextField(
+                              controller: _passController,
+                               obscureText: true,
+                               style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Password',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
                           ],
                         ),
@@ -135,7 +190,7 @@ class _LoginState extends State<Login> {
                         //login Button////////////////////////////////////////////
                         GestureDetector(
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                            login();
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(top: 20),
@@ -144,8 +199,9 @@ class _LoginState extends State<Login> {
                               decoration: BoxDecoration(
                                 color: Colors.deepPurple,
                                 borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: const Center(
+                              ),child: _isLoading? const Center(child: CircularProgressIndicator(
+                              color: Colors.white,
+                            )): const Center(
                                 child: Text(
                                   'Login',
                                   style: TextStyle(
@@ -165,11 +221,11 @@ class _LoginState extends State<Login> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 "Don't have an account? ",
                                 style: TextStyle(
                                     fontSize: 20,
-                                    color: Colors.black87,
+                                    color: Colors.grey.shade800,
                                 ),
                               ),
                               GestureDetector(
@@ -203,10 +259,10 @@ class _LoginState extends State<Login> {
                                     )
                                 ),
 
-                                const Text(
+                                 Text(
                                     " or login with ",
                                   style: TextStyle(
-                                    color: Colors.black87,
+                                    color: Colors.grey.shade800,
                                     fontSize: 16
                                   ),
                                 ),
@@ -223,15 +279,15 @@ class _LoginState extends State<Login> {
 
                         //fb logo/////////////////////////////////////////////////
                         Padding(
-                          padding: const EdgeInsets.only(top: 40,bottom: 100),
+                          padding: const EdgeInsets.only(top: 40,bottom: 105),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                               Text(
                                 'Continue with facebook ',
                                 style: TextStyle(
                                   fontSize: 20,
-                                  color: Colors.black87,
+                                  color: Colors.grey.shade800,
                                 ),
                               ),
                               Image.asset(

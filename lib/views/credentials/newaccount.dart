@@ -1,10 +1,10 @@
 import 'dart:typed_data';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sayhi/viewModel/auth_method.dart';
 import 'package:sayhi/views/ui_logic/image_picker.dart';
+import 'package:sayhi/views/ui_logic/show_snack_bar.dart';
 
 class NewAccount extends StatefulWidget {
   const NewAccount({Key? key}) : super(key: key);
@@ -20,6 +20,7 @@ class _NewAccountState extends State<NewAccount> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   Uint8List? _image;
+
 
 
   @override
@@ -43,6 +44,45 @@ class _NewAccountState extends State<NewAccount> {
       _image = im;
     });
   }
+
+  bool _isLoading = false;
+  void signUp() async {
+
+    setState(() {
+      _isLoading = true;
+      Future.delayed(const Duration(seconds: 10), _delay);
+    });
+
+    String res = await AuthMethod().signUpUser(
+      email: _emailController.text,
+      password: _passController.text,
+      bio: _bioController.text,
+      username: _usernameController.text,
+      file: _image!,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+
+    if(res != 'success'){
+      showSnackBar(res, context);
+    }
+    print(res);
+  }
+
+  Future _delay() async{
+    setState((){
+      _isLoading = false;
+    });
+  }
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,15 +108,15 @@ class _NewAccountState extends State<NewAccount> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //Create an Account Text////////////////////////////////
-                        const Padding(
-                          padding: EdgeInsets.only(top: 15, bottom: 18),
+                         Padding(
+                          padding: const EdgeInsets.only(top: 15, bottom: 18),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               'Sign-up',
                               style: TextStyle(
                                 fontSize: 36,
-                                color: Colors.black,
+                                color: Colors.grey.shade800,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -84,31 +124,45 @@ class _NewAccountState extends State<NewAccount> {
                         ),
 
                         //profile picture///////////////////////////////////////////////
-                        Center(
-                          child: Stack(
-                            children: [
-                              _image != null ? CircleAvatar(
-                                  radius: 50,
-                                  backgroundImage: MemoryImage(_image!)
-                              )
-                              : const CircleAvatar(
-                                radius: 50,
-                                backgroundImage: NetworkImage(
-                                    'https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=740&t=st=1669110206~exp=1669110806~hmac=97fb91bc3335ec062f420f5c48432c4e61f28568eb4204b6ebade6f4d2c9bfaf'),
+                        Column(
+                          children: [
+                            Center(
+                              child: Stack(
+                                children: [
+                                  _image != null ? CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage: MemoryImage(_image!)
+                                  )
+                                  : const CircleAvatar(
+                                    radius: 50,
+                                    backgroundImage: NetworkImage(
+                                        'https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?w=740&t=st=1669110206~exp=1669110806~hmac=97fb91bc3335ec062f420f5c48432c4e61f28568eb4204b6ebade6f4d2c9bfaf'),
+                                  ),
+                                  Positioned(
+                                    bottom: -10,
+                                    left: 50,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        SelectImage();
+                                      },
+                                      icon: const Icon(Icons.add_a_photo,
+                                        color: Colors.pink,),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Positioned(
-                                bottom: -10,
-                                left: 50,
-                                child: IconButton(
-                                  onPressed: () {
-                                    SelectImage();
-                                  },
-                                  icon: const Icon(Icons.add_a_photo,
-                                    color: Colors.pink,),
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              'Tab to uplaod profile',
+                              style: TextStyle(
+                                color: Colors.grey.shade700,
+                                fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 5,
@@ -116,13 +170,13 @@ class _NewAccountState extends State<NewAccount> {
                         //userName Block ///////////////////////////////////////////
                         Column(
                           children: [
-                            const Align(
+                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Username',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -137,8 +191,9 @@ class _NewAccountState extends State<NewAccount> {
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Username',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
+
                           ],
                         ),
                         const SizedBox(
@@ -149,13 +204,13 @@ class _NewAccountState extends State<NewAccount> {
                           padding: const EdgeInsets.only(top: 0.0),
                           child: Column(
                             children: [
-                              const Align(
+                               Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
                                   'Bio',
                                   style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.black,
+                                    fontSize: 22,
+                                    color: Colors.grey.shade800,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -163,7 +218,7 @@ class _NewAccountState extends State<NewAccount> {
                               //bio text Field///////////////////////////////////////////////////////////////
                               TextField(
                                 maxLength: 80,
-                                maxLines: 4,
+                                maxLines: 3,
                                 controller: _bioController,
                                 style: const TextStyle(color: Colors.black),
                                 decoration: const InputDecoration(
@@ -172,7 +227,7 @@ class _NewAccountState extends State<NewAccount> {
                                         BorderSide(color: Colors.deepPurple)),
                                     hintText: 'Tell people about yourself',
                                     hintStyle: TextStyle(
-                                        color: Colors.grey, fontSize: 18)),
+                                        color: Colors.grey, fontSize: 16)),
                               ),
                             ],
                           ),
@@ -181,13 +236,13 @@ class _NewAccountState extends State<NewAccount> {
                         //Email Block //////////////////////////////////////////
                         Column(
                           children: [
-                            const Align(
+                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Email',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -202,7 +257,7 @@ class _NewAccountState extends State<NewAccount> {
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter Your Email Address',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
                           ],
                         ),
@@ -214,13 +269,13 @@ class _NewAccountState extends State<NewAccount> {
                         //password block////////////////////////////////////////
                         Column(
                           children: [
-                            const Align(
+                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 'Password',
                                 style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.black,
+                                  fontSize: 22,
+                                  color: Colors.grey.shade800,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -236,7 +291,7 @@ class _NewAccountState extends State<NewAccount> {
                                       BorderSide(color: Colors.deepPurple)),
                                   hintText: 'Enter a Password',
                                   hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 18)),
+                                      color: Colors.grey, fontSize: 16)),
                             ),
 
                           ],
@@ -244,29 +299,21 @@ class _NewAccountState extends State<NewAccount> {
 
                         //Submit Button/////////////////////////////////////////
                         GestureDetector(
-                          onTap: () async {
-                            const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            );
-                            String res = await AuthMethod().signUpUser(
-                              email: _emailController.text,
-                              password: _passController.text,
-                              bio: _bioController.text,
-                              username: _usernameController.text,
-                              file: _image! ,
-                            );
-                            Navigator.pop(context);
-                            print(res);
+                          onTap: ()  {
+                            signUp();
+                            //Navigator.pop(context);
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 10),
+                            padding: const EdgeInsets.only(top: 30, bottom: 10),
                             child: Container(
                               padding: const EdgeInsets.all(14),
                               decoration: BoxDecoration(
                                 color: Colors.deepPurple,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              child: const Center(
+                              child: _isLoading? const Center(child: CircularProgressIndicator(
+                                color: Colors.white,
+                              )) : const Center(
                                 child: Text(
                                   'Submit',
                                   style: TextStyle(
