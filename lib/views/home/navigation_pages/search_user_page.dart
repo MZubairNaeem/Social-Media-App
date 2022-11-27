@@ -11,6 +11,9 @@ class _SearchUserState extends State<SearchUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+
+      ),
       body: Center(
         child: Text(
           'Search Page...',

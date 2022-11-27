@@ -11,6 +11,8 @@ class _MomentsPageState extends State<MomentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: Center(
         child: Text(
           'Reels Page...',
