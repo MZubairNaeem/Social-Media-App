@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sayhi/views/credentials/login.dart';
+import 'package:sayhi/views/state_management/user_provide.dart';
+import 'package:sayhi/model/user.dart' as model;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -71,9 +74,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
+
+    model.User user = Provider.of<UserProvide>(context).getUser;
+
     return Scaffold(
       appBar: AppBar(
           leading: Builder(
@@ -95,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Profile Page...',
+              'logged in as ${user.username}',
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
             ),
             GestureDetector(
