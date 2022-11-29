@@ -43,13 +43,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: const Text("Cancel"),
+      child: Text("Cancel",style: TextStyle(color: Colors.grey.shade800,fontWeight: FontWeight.bold)),
       onPressed:  () {
         Navigator.of(context).pop();
         },
     );
     Widget continueButton = TextButton(
-      child: const Text("Continue"),
+      child: const Text("Continue",style: TextStyle(fontWeight: FontWeight.bold)),
       onPressed:  () {
         _signOut();
       },
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Sign out"),
+      title: const Text("Sign out",style: TextStyle(fontWeight: FontWeight.bold)),
       content: const Text("Would you like to Sign out to SayHi"),
       actions: [
         cancelButton,

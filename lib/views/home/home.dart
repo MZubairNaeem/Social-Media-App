@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sayhi/views/home/navigation_pages/add_post.dart';
 import 'package:sayhi/views/home/navigation_pages/moments_page.dart';
 import 'package:sayhi/views/home/navigation_pages/post_page.dart';
 import 'package:sayhi/views/home/navigation_pages/profile_page.dart';
@@ -21,6 +20,7 @@ class _HomeState extends State<Home> {
   static const List<Widget> _widgetOptions = <Widget>[
     PostPage(),
     MomentsPage(),
+    AddPost(),
     SearchUser(),
     ProfilePage(),
   ];
@@ -72,6 +72,11 @@ class _HomeState extends State<Home> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.video_library),
                 label: 'Moments',
+                backgroundColor: Colors.deepPurple
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_box_outlined),
+                label: 'Share Something',
                 backgroundColor: Colors.deepPurple
             ),
             BottomNavigationBarItem(
