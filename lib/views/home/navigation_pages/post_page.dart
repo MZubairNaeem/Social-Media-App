@@ -1,16 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sayhi/views/ui_logic/post_card.dart';
 
-class PostPage extends StatefulWidget {
+class PostPage extends StatelessWidget {
   const PostPage({Key? key}) : super(key: key);
 
   @override
-  State<PostPage> createState() => _PostPageState();
-}
-
-class _PostPageState extends State<PostPage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           actions: [
             IconButton(
@@ -30,13 +28,25 @@ class _PostPageState extends State<PostPage> {
           ],
           centerTitle: true,
           title: const Text('Say Hi'),
-          backgroundColor: Colors.deepPurple
-      ),
-      body: Center(
-        child: Text(
-          'Post Page...',
-          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-        ),
+          backgroundColor: Colors.deepPurple),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('posts').snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.deepOrange,
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) => PostCard(
+              snap: snapshot.data!.docs[index].data(),
+            ),
+          );
+        },
       ),
     );
   }

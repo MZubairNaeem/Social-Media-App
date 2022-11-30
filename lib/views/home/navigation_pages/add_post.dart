@@ -27,19 +27,14 @@ class _AddPostState extends State<AddPost> {
     });
     try {
       String res = await FirestoreMethods().uploadPost(
-          _postDescController.text,
-          _post!,
-          uid,
-          username,
-          profImage
-      );
-      if(res == "success"){
+          _postDescController.text, _post!, uid, username, profImage);
+      if (res == "success") {
         setState(() {
           _isLoading = false;
         });
         showSnackBar('Posted', context);
         clearImage();
-      }else{
+      } else {
         setState(() {
           _isLoading = false;
         });
@@ -62,9 +57,20 @@ class _AddPostState extends State<AddPost> {
             children: [
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Capture a Moment',
-                    style: TextStyle(
-                        color: Colors.deepPurple, fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.add_a_photo
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'Capture a Moment',
+                      style: TextStyle(
+                          color: Colors.deepPurple,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Uint8List post = await pickImage(ImageSource.camera);
@@ -75,9 +81,20 @@ class _AddPostState extends State<AddPost> {
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Share Memory from gallery',
-                    style: TextStyle(
-                        color: Colors.deepPurple, fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: const [
+                    Icon(
+                        Icons.image_search
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'Share Memory from Gallery',
+                      style: TextStyle(
+                          color: Colors.deepPurple,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
                 onPressed: () async {
                   Navigator.of(context).pop();
                   Uint8List post = await pickImage(ImageSource.gallery);
@@ -88,8 +105,20 @@ class _AddPostState extends State<AddPost> {
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
-                child: const Text('Cancel',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: [
+                    const Icon(
+                        Icons.cancel_outlined
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Cancel',
+                      style: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -99,11 +128,12 @@ class _AddPostState extends State<AddPost> {
         });
   }
 
-  void clearImage(){
+  void clearImage() {
     setState(() {
       _post = null;
     });
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -134,13 +164,14 @@ class _AddPostState extends State<AddPost> {
             appBar: AppBar(
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () {},
+                onPressed: () => clearImage(),
               ),
               title: const Text('Say Hi'),
               centerTitle: true,
               actions: [
                 TextButton(
-                  onPressed: () => postImage(user.uid, user.username, user.photoUrl),
+                  onPressed: () =>
+                      postImage(user.uid, user.username, user.photoUrl),
                   child: const Text(
                     'Post',
                     style: TextStyle(
@@ -154,10 +185,13 @@ class _AddPostState extends State<AddPost> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  _isLoading? const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: CircularProgressIndicator(),
-                  ): const Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  _isLoading
+                      ? const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: CircularProgressIndicator(),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10)),
                   //const Divider(),
                   Row(
                     children: [
@@ -192,7 +226,7 @@ class _AddPostState extends State<AddPost> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            'Bio',
+                            'Description',
                             style: TextStyle(
                               fontSize: 22,
                               color: Colors.grey.shade800,
@@ -220,13 +254,13 @@ class _AddPostState extends State<AddPost> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Center(
                       child: AspectRatio(
-                        aspectRatio: 3 / 4,
+                        aspectRatio: 1 / 1,
                         child: Container(
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               image: DecorationImage(
                                   image: MemoryImage(_post!),
-                                  fit: BoxFit.fitHeight,
+                                  fit: BoxFit.cover,
                                   alignment: FractionalOffset.topCenter)),
                         ),
                       ),
