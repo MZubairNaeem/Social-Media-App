@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class LikeAnimation extends StatefulWidget {
   final Widget child;
-  final bool isAnimated;
+  final bool isAnimating;
   final Duration duration;
   final VoidCallback? onEnd;
   final bool smallLikes;
@@ -10,7 +10,7 @@ class LikeAnimation extends StatefulWidget {
   const LikeAnimation(
       {Key? key,
       required this.child,
-      required this.isAnimated,
+      required this.isAnimating,
       this.duration = const Duration(milliseconds: 150),
       this.onEnd,
       this.smallLikes = false})
@@ -35,24 +35,26 @@ class _LikeAnimationState extends State<LikeAnimation>
     scale = Tween<double>(begin: 1, end: 1.2).animate(controller);
   }
 
-  @override
-  void didUpdateWidget(covariant LikeAnimation oldWidget) {
-    startAnimation() async {
-      if (widget.isAnimated || widget.smallLikes) {
-        await controller.forward();
-        await controller.reverse();
-        await Future.delayed(
-          const Duration(milliseconds: 200),
-        );
 
-        if (widget.onEnd != null) {
-          widget.onEnd!();
-        }
+  startAnimation() async {
+    if (widget.isAnimating || widget.smallLikes) {
+      await controller.forward();
+      await controller.reverse();
+      await Future.delayed(
+        const Duration(milliseconds: 200),
+      );
+
+      if (widget.onEnd != null) {
+        widget.onEnd!();
       }
     }
+  }
+
+  @override
+  void didUpdateWidget(covariant LikeAnimation oldWidget) {
 
     super.didUpdateWidget(oldWidget);
-    if (widget.isAnimated != oldWidget.isAnimated) {
+    if (widget.isAnimating != oldWidget.isAnimating) {
       startAnimation();
     }
   }

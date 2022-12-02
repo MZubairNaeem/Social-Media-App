@@ -254,13 +254,13 @@ class _AddPostState extends State<AddPost> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Center(
                       child: AspectRatio(
-                        aspectRatio: 1 / 1,
+                        aspectRatio: 3 / 4,
                         child: Container(
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               image: DecorationImage(
                                   image: MemoryImage(_post!),
-                                  fit: BoxFit.cover,
+                                  fit: BoxFit.fitHeight,
                                   alignment: FractionalOffset.topCenter)),
                         ),
                       ),
