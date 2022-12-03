@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sayhi/views/home/navigation_pages/add_post.dart';
@@ -6,6 +7,7 @@ import 'package:sayhi/views/home/navigation_pages/post_page.dart';
 import 'package:sayhi/views/home/navigation_pages/profile_page.dart';
 import 'package:sayhi/views/home/navigation_pages/search_user_page.dart';
 import 'package:sayhi/views/state_management/user_provide.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,12 +19,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    PostPage(),
-    MomentsPage(),
-    AddPost(),
-    SearchUser(),
-    ProfilePage(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const PostPage(),
+    const MomentsPage(),
+    const AddPost(),
+    const SearchUser(),
+    ProfilePage(uid: FirebaseAuth.instance.currentUser!.uid,),
   ];
 
   void _onItemTapped(int index) {

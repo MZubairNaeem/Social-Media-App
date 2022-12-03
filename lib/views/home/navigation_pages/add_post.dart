@@ -161,7 +161,7 @@ class _AddPostState extends State<AddPost> {
           )
         : Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.deepPurple,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => clearImage(),
