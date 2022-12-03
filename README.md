@@ -1,16 +1,10 @@
-# sayhi
+#SayHi is a Social Media Mobile Application
 
-A social media app
+Build Using Flutter and Firebase
+State Managed By Provider Stata Management Package (most recommended Package)
+The app build on MVVM architecture
 
-## Getting Started
+The is like Instagram where user can 
+create account using email and share post,pictures etc
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+one user can search and follow other users
