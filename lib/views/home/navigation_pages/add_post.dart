@@ -143,25 +143,25 @@ class _AddPostState extends State<AddPost> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvide>(context).getUser;
-
     return _post == null
         ? Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.upload, size: 36),
+                  icon: Icon(Icons.upload, size: 36,color: Colors.grey.shade800,),
                   onPressed: () => _selectImage(context),
                 ),
-                const Text(
+                 Text(
                   'Tap to select your post!',
-                  style: TextStyle(fontSize: 24),
+                  style: TextStyle(fontSize: 24,color: Colors.grey.shade800),
                 )
               ],
             ),
           )
         : Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.white,
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => clearImage(),

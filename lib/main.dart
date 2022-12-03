@@ -36,13 +36,13 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.deepPurple,
                 primaryColorDark: Colors.deepPurple,
                 cardColor: Colors.deepPurple[200],
-                backgroundColor: Colors.black54,
+                backgroundColor: Colors.white,
                 errorColor: Colors.red)),
         darkTheme: ThemeData.dark().copyWith(
           focusColor: Colors.purple,
           primaryColorDark: Colors.deepPurple,
           cardColor: Colors.deepPurple[200],
-          backgroundColor: Colors.black54,
+          backgroundColor: Colors.white,
           errorColor: Colors.red,
           textTheme: ThemeData.dark().textTheme.apply(
               fontFamily: GoogleFonts.varelaRound().fontFamily,
